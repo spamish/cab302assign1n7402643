@@ -49,6 +49,7 @@ public class SoccerCompetition implements SportsCompetition{
 	 */
 	public SoccerLeague getLeague(int leagueNum) throws CompetitionException{
 
+		// TO DO
 		
 	}
 	
@@ -57,6 +58,8 @@ public class SoccerCompetition implements SportsCompetition{
 	 * Starts a new soccer season for each league in the competition.
 	 */
 	public void startSeason() {
+
+		// TO DO
 
 	}
 
@@ -69,7 +72,8 @@ public class SoccerCompetition implements SportsCompetition{
 	 */
 	public void endSeason()  {
 
-		
+		// TO DO
+
 	}
 
 	/** 
