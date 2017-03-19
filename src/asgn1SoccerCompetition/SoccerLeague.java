@@ -25,7 +25,7 @@ public class SoccerLeague implements SportsLeague{
 	/**
 	 * Generates a model of a soccer team with the specified number of teams. 
 	 * A season can not start until that specific number of teams has been added. 
-	 * One that number of teams has been research no more teams can be added unless
+	 * Once that number of teams has been reached no more teams can be added unless
 	 * a team is first removed. 
 	 * 
 	 * @param requiredTeams The number of teams required/limit for the league.
@@ -78,7 +78,7 @@ public class SoccerLeague implements SportsLeague{
 	}
 	
 	/** 
-	 * Starts a new season by reverting all statistics for each times to initial values.
+	 * Starts a new season by reverting all statistics for each team to initial values.
 	 * 
 	 * @throws LeagueException if the number of registered teams does not equal the required number of teams or if the season has already started
 	 */

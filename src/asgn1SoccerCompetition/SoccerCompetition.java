@@ -25,8 +25,7 @@ public class SoccerCompetition implements SportsCompetition{
 	
 	/**
 	 * Creates the model for a new soccer competition with a specific name,
-	 * number of leagues, and number of games to display to indicate the teams
-	 * form. 
+	 * number of leagues and number of teams in each league
 	 * 
 	 * @param name The name of the competition.
 	 * @param numLeagues The number of leagues in the competition.
