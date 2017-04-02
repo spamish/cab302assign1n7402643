@@ -67,6 +67,7 @@ public class SoccerCompetitionWizard {
         		int awayGoals = Integer.parseInt(gameArr[4]);
         		sc.getLeague(league).playMatch(homeTeam, homeGoals, awayTeam, awayGoals);        		
        	        line = br.readLine();
+       	        
        	     }
        	    
         	System.out.println("");       	    

@@ -17,8 +17,8 @@ import asgn1SportsUtils.WLD;
  * a season depending on the results from their matches. 
  * 
  * @author Alan Woodley
- * @version 1.0
- *
+ * @contributer Samuel Janetzki
+ * @see https://bitbucket.org/cab302/asgn1release
  */
 public class SoccerTeam implements SportsTeam, Comparable<SoccerTeam>{
 	
@@ -39,10 +39,8 @@ public class SoccerTeam implements SportsTeam, Comparable<SoccerTeam>{
 	 * @param nick The nick name of the soccer team.
 	 * @throws TeamException If either the official or nick are empty strings.
 	 */
+	// TO DO
 	public SoccerTeam(String official, String nick) throws TeamException{
-		
-		// TO DO: ADD TESTS FOR EXCEPTIONS
-		
 		this.officialName = official;
 		this.nickName = nick;
 		this.goalsScoredSeason = 0;
@@ -155,10 +153,23 @@ public class SoccerTeam implements SportsTeam, Comparable<SoccerTeam>{
 	 * @param goalsAgainst The number of goals conceded by the team.
 	 * @throws TeamException If the number of goals scored or conceded is an unrealistic number (less than 0 or greater than 20).
 	 */
+	// TO DO
 	public void playMatch(int goalsFor, int goalsAgainst) throws TeamException{
-
-		// TO DO
+		goalsScoredSeason += goalsFor;
+		goalsConcededSeason += goalsAgainst;
 		
+		if (goalsFor == goalsAgainst) {
+			matchesDrawn++;
+			competitionPoints += 1;
+			form.addResultToForm(WLD.DRAW);
+		} else if (goalsFor > goalsAgainst) {
+			matchesWon++;
+			competitionPoints += 3;
+			form.addResultToForm(WLD.WIN);
+		} else {
+			matchesLost++;
+			form.addResultToForm(WLD.LOSS);
+		}
 	}	
 	
 	/**

@@ -15,22 +15,23 @@ import asgn1SportsUtils.WLD;
  * 
  *  
  * @author Alan Woodley
- *
+ * @contributer Samuel Janetzki
+ * @see https://bitbucket.org/cab302/asgn1release
  */
 public class SportsTeamForm {
 
 	// The number of recent games to show as the recent form of the team
 	private static final int maxLength = 5;
-
+	LinkedList<WLD> scores;
 
 	/**
 	 * Constructs the data structure that holds the match results (win, loss, draw) for recent matches.
 	 * For simplicity the results for the last 5 matches will be stored.
 	 * 
 	 */
+	// DONE
 	public SportsTeamForm() {
-		// TODO
-		
+		this.scores = new LinkedList<WLD>();
 	}
 	
 	/**
@@ -43,9 +44,13 @@ public class SportsTeamForm {
 	 * @param result The result of the latest match
 	 *
 	 */
-	public void addResultToForm(WLD result){ 
-		// TODO
+	// DONE
+	public void addResultToForm(WLD result){
+		scores.addFirst(result);
 		
+		if (scores.size() > maxLength) {
+			scores.removeLast();
+		}
 	}
 	
 	/**
@@ -59,8 +64,21 @@ public class SportsTeamForm {
 	 * 
 	 * @return A string representing the results of recent matches.
 	 */
+	// DONE
 	public String toString(){
-		// TO DO
+		String str = "";
+		java.util.Iterator<WLD> iterator = scores.iterator();
+
+
+		while (iterator.hasNext()) {
+			str += iterator.next().getChar();
+		}
+		
+		while (str.length() < maxLength) {
+			str += "-";
+		}
+		
+		return str;
 	}
 	
 	
@@ -69,15 +87,17 @@ public class SportsTeamForm {
      *
 	 * @return The number of games played. 
 	 */
+	// DONE
 	public int getNumGames(){
-		// TO DO
+		return scores.size();
 	}
 	
 	/**
 	 * Resets the data structure to its initial values.
 	 */
+	// TO DO
 	public void resetForm(){
-		// TO DO
+		scores.clear();
 	}
 	
 }

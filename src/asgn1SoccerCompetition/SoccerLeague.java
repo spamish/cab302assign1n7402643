@@ -1,7 +1,7 @@
 package asgn1SoccerCompetition;
 
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 
 import asgn1Exceptions.LeagueException;
 import asgn1Exceptions.TeamException;
@@ -12,15 +12,15 @@ import asgn1Exceptions.TeamException;
  * alphabetically. 
  * 
  * @author Alan Woodley
- * @version 1.0
- *
+ * @contributer Samuel Janetzki
+ * @see https://bitbucket.org/cab302/asgn1release
  */
 public class SoccerLeague implements SportsLeague{
 	// Specifies the number of team required/limit of teams for the league
 	private int requiredTeams;
 	// Specifies is the league is in the off season
 	private boolean offSeason;
-	
+	ArrayList<SoccerTeam> teams;
 	
 	/**
 	 * Generates a model of a soccer team with the specified number of teams. 
@@ -30,8 +30,10 @@ public class SoccerLeague implements SportsLeague{
 	 * 
 	 * @param requiredTeams The number of teams required/limit for the league.
 	 */
+	// TO DO
 	public SoccerLeague (int requiredTeams){
-		// TO DO
+		this.requiredTeams = requiredTeams;
+		teams = new ArrayList<SoccerTeam>(requiredTeams);
 	}
 
 	
@@ -43,8 +45,9 @@ public class SoccerLeague implements SportsLeague{
 	 * teams allowed to register has already been reached or a team with the 
 	 * same official name has already been registered.
 	 */
+	// TO DO
 	public void registerTeam(SoccerTeam team) throws LeagueException {
-		// TO DO
+		teams.add(team);
 	}
 	
 	/**
@@ -53,8 +56,9 @@ public class SoccerLeague implements SportsLeague{
 	 * @param team The team to remove
 	 * @throws LeagueException if the season has not ended or if the team is not registered into the league.
 	 */
+	// TO DO
 	public void removeTeam(SoccerTeam team) throws LeagueException{
-		// TO DO
+		teams.remove(team);
 	}
 	
 	/** 
@@ -62,8 +66,9 @@ public class SoccerLeague implements SportsLeague{
 	 * 
 	 * @return the current number of teams registered
 	 */
+	// TO DO
 	public int getRegisteredNumTeams(){
-		// TO DO
+		return teams.size();
 	}
 	
 	/**
@@ -82,8 +87,16 @@ public class SoccerLeague implements SportsLeague{
 	 * 
 	 * @throws LeagueException if the number of registered teams does not equal the required number of teams or if the season has already started
 	 */
+	// DONE
 	public void startNewSeason() throws LeagueException{
-		// TO DO 
+		offSeason = false;
+		java.util.Iterator<SoccerTeam> iterator = teams.iterator();
+		
+		while (iterator.hasNext()) {
+			iterator.next().resetStats();
+		}
+
+		this.sortTeams();
 	}
 	
 
@@ -92,8 +105,9 @@ public class SoccerLeague implements SportsLeague{
 	 * 
 	 * @throws LeagueException if season has not started
 	 */
+	// TO DO
 	public void endSeason() throws LeagueException{
-		// TO DO 
+		offSeason = true;
 	}
 	
 	/**
@@ -113,8 +127,18 @@ public class SoccerLeague implements SportsLeague{
 	 * @return The team object with the specified official name.
 	 * @throws LeagueException if no team has that official name.
 	 */
-	public SoccerTeam getTeamByOfficalName(String name) throws LeagueException{		
-		// TO DO 
+	// TO DO
+	public SoccerTeam getTeamByOfficalName(String name) throws LeagueException{
+		java.util.Iterator<SoccerTeam> iterator = teams.iterator();
+		
+		while (iterator.hasNext()) {
+			SoccerTeam value = iterator.next();
+			if (value.getOfficialName().equals(name)) {
+				return value;
+			}
+		}
+		
+		return null;
 	}
 		
 	/**
@@ -127,15 +151,40 @@ public class SoccerLeague implements SportsLeague{
 	 * @param awayTeamGoals The number of goals scored by the away team.
 	 * @throws LeagueException If the season has not started or if both teams have the same official name. 
 	 */
+	// TO DO
 	public void playMatch(String homeTeamName, int homeTeamGoals, String awayTeamName, int awayTeamGoals) throws LeagueException{
-		// TO DO 
+		java.util.Iterator<SoccerTeam> iterator = teams.iterator();
+		
+		while (iterator.hasNext()) {
+			SoccerTeam value = iterator.next();
+			
+			try {
+				if (value.getOfficialName().equals(homeTeamName)) {
+					value.playMatch(homeTeamGoals, awayTeamGoals);
+				}
+				
+				if (value.getOfficialName().equals(awayTeamName)) {
+					value.playMatch(awayTeamGoals, homeTeamGoals);
+				}
+			} catch (TeamException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		this.sortTeams();
 	}
 	
 	/**
 	 * Displays a ranked list of the teams in the league  to the screen.
 	 */
+	// TO DO
 	public void displayLeagueTable(){
-		// TO DO (optional)
+		java.util.Iterator<SoccerTeam> iterator = teams.iterator();
+		
+		while (iterator.hasNext()) {
+			iterator.next().displayTeamDetails();
+		}
 	}	
 	
 	/**
@@ -144,8 +193,17 @@ public class SoccerLeague implements SportsLeague{
 	 * @return The highest ranked team in the league. 
 	 * @throws LeagueException if the number of teams is zero or less than the required number of teams.
 	 */
+	// DONE
 	public SoccerTeam getTopTeam() throws LeagueException{
-		// TO DO 
+		SoccerTeam value = teams.get(0);
+		
+		for (int i = 1; i < teams.size(); i++) {
+			if (value.compareTo(teams.get(i)) > 0) {
+				value = teams.get(i);
+			}
+		}
+		
+		return value;
 	}
 
 	/**
@@ -154,15 +212,34 @@ public class SoccerLeague implements SportsLeague{
 	 * @return The lowest ranked team in the league. 
 	 * @throws LeagueException if the number of teams is zero or less than the required number of teams.
 	 */
+	// DONE
 	public SoccerTeam getBottomTeam() throws LeagueException{
-		// TO DO 
+		SoccerTeam value = teams.get(0);
+		
+		for (int i = 1; i < teams.size(); i++) {
+			if (value.compareTo(teams.get(i)) < 0) {
+				value = teams.get(i);
+			}
+		}
+		
+		return value;
 	}
 
 	/** 
 	 * Sorts the teams in the league.
 	 */
-    public void sortTeams(){		
-		// TO DO 
+	// DONE
+    public void sortTeams(){
+    	for (int i = 0; i < (teams.size() - 1); i++) {
+    		for (int j = (i + 1); j < teams.size(); j++) {
+    			if (teams.get(i).compareTo(teams.get(j)) > 0) {
+    				SoccerTeam temp = teams.get(i);
+    				
+    				teams.set(i, teams.get(j));
+    				teams.set(j, temp);
+    			}
+    		}
+    	}
     }
     
     /**
@@ -171,8 +248,17 @@ public class SoccerLeague implements SportsLeague{
      * @param name The name of a team.
      * @return True if the team is registered to the league, false otherwise. 
      */
+    // DONE
     public boolean containsTeam(String name){
-		// TO DO 
+    	java.util.Iterator<SoccerTeam> iterator = teams.iterator();
+		
+		while (iterator.hasNext()) {
+			if (iterator.next().getOfficialName().equals(name)) {
+				return true;
+			}
+		}
+		
+		return false;
     }
     
 }

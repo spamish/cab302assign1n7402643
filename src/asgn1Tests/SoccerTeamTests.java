@@ -14,8 +14,9 @@ import asgn1SoccerCompetition.SoccerTeam;
  * A set of JUnit tests for the asgn1SoccerCompetition.SoccerLeage class
  *
  * @author Alan Woodley
- *
+ * @contributer Samuel Janetzki
+ * @see https://bitbucket.org/cab302/asgn1release
  */
+// TO DO
 public class SoccerTeamTests {
-
 }
