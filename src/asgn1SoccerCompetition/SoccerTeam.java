@@ -39,8 +39,10 @@ public class SoccerTeam implements SportsTeam, Comparable<SoccerTeam>{
 	 * @param nick The nick name of the soccer team.
 	 * @throws TeamException If either the official or nick are empty strings.
 	 */
-	// TO DO
 	public SoccerTeam(String official, String nick) throws TeamException{
+		if (official.length() <= 0) throw new TeamException("SoccerTeam.constructor: Official name empty");
+		if (nick.length() <= 0) throw new TeamException("SoccerTeam.constructor: Nickname empty");
+		
 		this.officialName = official;
 		this.nickName = nick;
 		this.goalsScoredSeason = 0;
@@ -153,22 +155,28 @@ public class SoccerTeam implements SportsTeam, Comparable<SoccerTeam>{
 	 * @param goalsAgainst The number of goals conceded by the team.
 	 * @throws TeamException If the number of goals scored or conceded is an unrealistic number (less than 0 or greater than 20).
 	 */
-	// TO DO
 	public void playMatch(int goalsFor, int goalsAgainst) throws TeamException{
-		goalsScoredSeason += goalsFor;
-		goalsConcededSeason += goalsAgainst;
+		if (goalsFor < 0) throw new TeamException("SoccerTeam.playMatch: Goals for less than 0");
+		if (goalsAgainst < 0) throw new TeamException("SoccerTeam.playMatch: Goals against less than 0");
+		if (goalsFor > 20) throw new TeamException("SoccerTeam.playMatch: Goals for greater than 20");
+		if (goalsAgainst > 20) throw new TeamException("SoccerTeam.playMatch: Goals against greater than 20");
 		
+		// Add new goal scores to totals
+		this.goalsScoredSeason += goalsFor;
+		this.goalsConcededSeason += goalsAgainst;
+		
+		// Determine if a match is a Win, Loss or Draw, then increment result, add points and add new result to SportsTeamForm
 		if (goalsFor == goalsAgainst) {
-			matchesDrawn++;
-			competitionPoints += 1;
-			form.addResultToForm(WLD.DRAW);
+			this.matchesDrawn++;
+			this.competitionPoints += 1;
+			this.form.addResultToForm(WLD.DRAW);
 		} else if (goalsFor > goalsAgainst) {
-			matchesWon++;
-			competitionPoints += 3;
-			form.addResultToForm(WLD.WIN);
+			this.matchesWon++;
+			this.competitionPoints += 3;
+			this.form.addResultToForm(WLD.WIN);
 		} else {
-			matchesLost++;
-			form.addResultToForm(WLD.LOSS);
+			this.matchesLost++;
+			this.form.addResultToForm(WLD.LOSS);
 		}
 	}	
 	
@@ -194,11 +202,8 @@ public class SoccerTeam implements SportsTeam, Comparable<SoccerTeam>{
 				return this.officialName.compareTo(other.officialName);
 			} return (other.getGoalDifference()) - (this.getGoalDifference());
 		} else return other.competitionPoints -  this.competitionPoints;
-		
-		
 	}
 	
-		
 	/**
 	 * Resets the teams values to their original values.
 	 */
@@ -210,7 +215,5 @@ public class SoccerTeam implements SportsTeam, Comparable<SoccerTeam>{
 		this.matchesDrawn = 0;
 		this.competitionPoints = 0;	
 		form.resetForm();
-
 	}
-
 }

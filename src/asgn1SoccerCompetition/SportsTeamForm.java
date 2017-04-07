@@ -22,14 +22,14 @@ public class SportsTeamForm {
 
 	// The number of recent games to show as the recent form of the team
 	private static final int maxLength = 5;
-	LinkedList<WLD> scores;
+	// A linked list containing the WLD enums for each game played.
+	private LinkedList<WLD> scores;
 
 	/**
 	 * Constructs the data structure that holds the match results (win, loss, draw) for recent matches.
 	 * For simplicity the results for the last 5 matches will be stored.
 	 * 
 	 */
-	// DONE
 	public SportsTeamForm() {
 		this.scores = new LinkedList<WLD>();
 	}
@@ -44,12 +44,13 @@ public class SportsTeamForm {
 	 * @param result The result of the latest match
 	 *
 	 */
-	// DONE
 	public void addResultToForm(WLD result){
-		scores.addFirst(result);
+		// Add the new score to the front of the structure and increment number of games played.
+		this.scores.addFirst(result);
 		
+		// If more than 5 games are in the structure then remove the last element.
 		if (scores.size() > maxLength) {
-			scores.removeLast();
+			this.scores.removeLast();
 		}
 	}
 	
@@ -64,16 +65,16 @@ public class SportsTeamForm {
 	 * 
 	 * @return A string representing the results of recent matches.
 	 */
-	// DONE
 	public String toString(){
 		String str = "";
 		java.util.Iterator<WLD> iterator = scores.iterator();
 
-
+		// concatenate characters representing the score 
 		while (iterator.hasNext()) {
 			str += iterator.next().getChar();
 		}
 		
+		// append as many dashes as needed to make the string 5 characters
 		while (str.length() < maxLength) {
 			str += "-";
 		}
@@ -87,7 +88,6 @@ public class SportsTeamForm {
      *
 	 * @return The number of games played. 
 	 */
-	// DONE
 	public int getNumGames(){
 		return scores.size();
 	}
@@ -95,9 +95,8 @@ public class SportsTeamForm {
 	/**
 	 * Resets the data structure to its initial values.
 	 */
-	// TO DO
 	public void resetForm(){
-		scores.clear();
+		this.scores.clear();
 	}
 	
 }
