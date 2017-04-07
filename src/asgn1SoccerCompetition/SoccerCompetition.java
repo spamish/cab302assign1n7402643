@@ -92,6 +92,7 @@ public class SoccerCompetition implements SportsCompetition{
 		while (iterator.hasNext()) {
 			SoccerLeague value = iterator.next();
 			
+			
 			try {
 				value.endSeason();
 				promotion.add(value.getTopTeam());
@@ -99,6 +100,7 @@ public class SoccerCompetition implements SportsCompetition{
 			} catch (LeagueException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return;
 			}
 		}
 		
@@ -120,6 +122,7 @@ public class SoccerCompetition implements SportsCompetition{
 			} catch (LeagueException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return;
 			}
 		}
 	}

@@ -23,19 +23,20 @@ public class SportsTeamFormTests {
 		sportsTeamForm = new SportsTeamForm();
 	}
 	
+	// Testing for adding games
+	
 	@Test
 	public void TestNoGamesPlayed() {
-		int testAnswer = sportsTeamForm.getNumGames();
-		int expectedAnswer = 0;
-		assertEquals(expectedAnswer, testAnswer);
+		int expectedResult = 0;
+		assertEquals(expectedResult, sportsTeamForm.getNumGames());
 	}
 	
 	@Test
 	public void TestResultAdded() {
 		sportsTeamForm.addResultToForm(WLD.WIN);
-		int testAnswer = sportsTeamForm.getNumGames();
-		int expectedAnswer = 1;
-		assertEquals(expectedAnswer, testAnswer);
+
+		int expectedResult = 1;
+		assertEquals(expectedResult, sportsTeamForm.getNumGames());
 	}
 	
 	@Test
@@ -43,9 +44,9 @@ public class SportsTeamFormTests {
 		for (int i = 0; i < 5; i++) {
 			sportsTeamForm.addResultToForm(WLD.WIN);
 		}
-		int testAnswer = sportsTeamForm.getNumGames();
-		int expectedAnswer = 5;
-		assertEquals(expectedAnswer, testAnswer);
+		
+		int expectedResult = 5;
+		assertEquals(expectedResult, sportsTeamForm.getNumGames());
 	}
 	
 	@Test
@@ -53,20 +54,22 @@ public class SportsTeamFormTests {
 		for (int i = 0; i < 6; i++) {
 			sportsTeamForm.addResultToForm(WLD.WIN);
 		}
-		int testAnswer = sportsTeamForm.getNumGames();
-		int expectedAnswer = 5;
-		assertEquals(expectedAnswer, testAnswer);
+		
+		int expectedResult = 5;
+		assertEquals(expectedResult, sportsTeamForm.getNumGames());
 	}
 
+	// Testing for reset behaviour
+	
 	@Test
 	public void TestResetResults() {
 		for (int i = 0; i < 5; i++) {
 			sportsTeamForm.addResultToForm(WLD.WIN);
 		}
 		sportsTeamForm.resetForm();
-		int testAnswer = sportsTeamForm.getNumGames();
-		int expectedAnswer = 0;
-		assertEquals(expectedAnswer, testAnswer);
+		
+		int expectedResult = 0;
+		assertEquals(expectedResult, sportsTeamForm.getNumGames());
 	}
 
 	@Test
@@ -76,24 +79,35 @@ public class SportsTeamFormTests {
 		}
 		sportsTeamForm.resetForm();
 		sportsTeamForm.addResultToForm(WLD.WIN);
-		int testAnswer = sportsTeamForm.getNumGames();
-		int expectedAnswer = 1;
-		assertEquals(expectedAnswer, testAnswer);
+		
+		int expectedResult = 1;
+		assertEquals(expectedResult, sportsTeamForm.getNumGames());
 	}
 
+	// Testing for string output
+	
 	@Test
 	public void TestNoResultsString() {
-		String testAnswer = sportsTeamForm.toString();
-		String expectedAnswer = "-----";
-		assertEquals(expectedAnswer, testAnswer);
+		String expectedResult = "-----";
+		assertEquals(expectedResult, sportsTeamForm.toString());
 	}
 
 	@Test
 	public void TestSingleResultString() {
 		sportsTeamForm.addResultToForm(WLD.DRAW);
-		String testAnswer = sportsTeamForm.toString();
-		String expectedAnswer = "D----";
-		assertEquals(expectedAnswer, testAnswer);
+		
+		String expectedResult = "D----";
+		assertEquals(expectedResult, sportsTeamForm.toString());
+	}
+
+	@Test
+	public void TestThreeResultString() {
+		sportsTeamForm.addResultToForm(WLD.WIN);
+		sportsTeamForm.addResultToForm(WLD.LOSS);
+		sportsTeamForm.addResultToForm(WLD.DRAW);
+		
+		String expectedResult = "DLW--";
+		assertEquals(expectedResult, sportsTeamForm.toString());
 	}
 	
 	@Test
@@ -103,9 +117,9 @@ public class SportsTeamFormTests {
 		sportsTeamForm.addResultToForm(WLD.DRAW);
 		sportsTeamForm.addResultToForm(WLD.WIN);
 		sportsTeamForm.addResultToForm(WLD.LOSS);
-		String testAnswer = sportsTeamForm.toString();
-		String expectedAnswer = "LWDLW";
-		assertEquals(expectedAnswer, testAnswer);
+		
+		String expectedResult = "LWDLW";
+		assertEquals(expectedResult, sportsTeamForm.toString());
 	}
 	
 	@Test
@@ -116,8 +130,9 @@ public class SportsTeamFormTests {
 		sportsTeamForm.addResultToForm(WLD.WIN);
 		sportsTeamForm.addResultToForm(WLD.LOSS);
 		sportsTeamForm.addResultToForm(WLD.DRAW);
-		String testAnswer = sportsTeamForm.toString();
-		String expectedAnswer = "DLWDL";
-		assertEquals(expectedAnswer, testAnswer);
+		
+		String expectedResult = "DLWDL";
+		assertEquals(expectedResult, sportsTeamForm.toString());
 	}
+	
 }

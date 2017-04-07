@@ -48,7 +48,7 @@ public class SoccerLeague implements SportsLeague{
 	 */
 	public void registerTeam(SoccerTeam team) throws LeagueException {
 		if (!offSeason) throw new LeagueException("SoccerLeague.registerTeam: Season has already started");
-		if (teams.size() > requiredTeams) throw new LeagueException("SoccerLeague.registerTeam: Maximum number of teams registered");
+		if (teams.size() >= requiredTeams) throw new LeagueException("SoccerLeague.registerTeam: Maximum number of teams registered");
 		if (teams.contains(team)) throw new LeagueException("SoccerLeague.registerTeam: Team already registered");
 		
 		// Append team to this league
